@@ -250,15 +250,16 @@ export default function AddressBook({
             <SEditableText
               truncate={true}
               value={label}
-              saveValue={(value) => updateContact({ address, label: value, network, notes, uuid })}
+              onChange={(value) => updateContact({ address, label: value, network, notes, uuid })}
             />
           </Label>,
           <EthAddress address={address} truncate={true} isCopyable={true} />,
           <Network color={color}>{network}</Network>,
           <EditableText
+            placeholder="(empty)"
             truncate={true}
             value={notes}
-            saveValue={(value) => updateContact({ address, label, network, notes: value, uuid })}
+            onChange={(value) => updateContact({ address, label, network, notes: value, uuid })}
           />,
           <DeleteButton onClick={() => setDeletingIndex(index)} icon="exit" />
           /* eslint-enable react/jsx-key */
