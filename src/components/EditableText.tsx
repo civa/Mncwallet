@@ -103,7 +103,7 @@ function EditableText({ onChange, value, truncate, placeholder }: Props) {
           >
             {hasValue ? value : placeholder}
           </SText>
-          <SIcon type="edit" onClick={edit} height="0.8em" />
+          <SIcon type="edit" onClick={edit} height="0.8em" color="discrete" />
         </>
       )}
     </SBox>
