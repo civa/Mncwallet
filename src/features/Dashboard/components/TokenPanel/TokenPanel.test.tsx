@@ -3,7 +3,7 @@ import React from 'react';
 import { ProvidersWrapper, simpleRender } from 'test-utils';
 
 import { fAccounts, fAssets, fSettings } from '@fixtures';
-import { DataContext, IDataContext, RatesContext, StoreContext } from '@services';
+import { DataContext, IDataContext, StoreContext } from '@services';
 import { translateRaw } from '@translations';
 
 import { TokenPanel } from './TokenPanel';
@@ -15,22 +15,21 @@ function getComponent() {
         value={
           ({
             assets: fAssets,
-            settings: fSettings
+            settings: fSettings,
+            rates: {}
           } as unknown) as IDataContext
         }
       >
-        <RatesContext.Provider value={({ rates: {}, trackAsset: jest.fn() } as unknown) as any}>
-          <StoreContext.Provider
-            value={
-              ({
-                currentAccounts: fAccounts,
-                totals: () => fAccounts[0].assets
-              } as any) as any
-            }
-          >
-            <TokenPanel />
-          </StoreContext.Provider>
-        </RatesContext.Provider>
+        <StoreContext.Provider
+          value={
+            ({
+              currentAccounts: fAccounts,
+              totals: () => fAccounts[0].assets
+            } as any) as any
+          }
+        >
+          <TokenPanel />
+        </StoreContext.Provider>
       </DataContext.Provider>
     </ProvidersWrapper>
   );
