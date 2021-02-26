@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ExtendedUserAction, LSKeys, TUuid } from '@types';
 import { findIndex, propEq } from '@vendor';
 
 import { initialLegacyState } from './legacy.initialState';
+import { getAppState } from './selectors';
 
 const sliceName = LSKeys.USER_ACTIONS;
 export const initialState = initialLegacyState[sliceName];
@@ -31,5 +32,7 @@ export const {
   destroy: destroyUserAction,
   update: updateUserAction
 } = slice.actions;
+
+export const selectUserAction = createSelector(getAppState, (s) => s[slice.name]);
 
 export default slice;
