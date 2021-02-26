@@ -17,7 +17,7 @@ export {
   getAccounts,
   addAccounts
 } from './account.slice';
-export { createContact, destroyContact, updateContact } from './contact.slice';
+export { createContact, destroyContact, updateContact, selectContacts } from './contact.slice';
 export {
   createUserAction,
   destroyUserAction,
