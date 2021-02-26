@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button } from '@mycrypto/ui';
+import { AnyAction, bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 
 import { DashboardPanel, RowDeleteOverlay, SubHeading, Tooltip } from '@components';
-import { DataContext } from '@services/Store';
+import { appReset } from '@store';
 import { BREAK_POINTS, COLORS, SPACING } from '@theme';
 import translate, { translateRaw } from '@translations';
 
@@ -35,8 +37,7 @@ const SettingsButton = styled(Button)`
   padding: ${SPACING.SM};
 `;
 
-const DangerZone: React.FC = () => {
-  const { resetAppDb } = useContext(DataContext);
+const DangerZone: React.FC<Props> = ({ appReset }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   return (
@@ -50,7 +51,7 @@ const DangerZone: React.FC = () => {
           prompt={translateRaw('DANGERZONE_CONFIRM')}
           deleteText={translateRaw('SETTINGS_DB_RESET_ACTION')}
           deleteAction={() => {
-            resetAppDb();
+            appReset();
             setConfirmDelete(false);
           }}
           cancelAction={() => setConfirmDelete(false)}
@@ -72,4 +73,9 @@ const DangerZone: React.FC = () => {
   );
 };
 
-export default DangerZone;
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators({ appReset }, dispatch);
+
+const connector = connect(null, mapDispatchToProps);
+type Props = ConnectedProps<typeof connector>;
+export default connector(DangerZone);
